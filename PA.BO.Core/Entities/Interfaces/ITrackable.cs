@@ -1,4 +1,4 @@
-namespace PABo.Core.Entities.Interfaces;
+namespace PA.BO.Core.Entities.Interfaces;
 
 public interface ITrackable
 {

@@ -1,4 +1,4 @@
-namespace PABo.Core.Enums;
+namespace PA.BO.Core.Enums;
 
 public enum DataType
 {

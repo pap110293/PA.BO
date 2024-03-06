@@ -1,4 +1,4 @@
-namespace PABo.Common;
+namespace PA.BO.Common;
 
 public interface IClock
 {

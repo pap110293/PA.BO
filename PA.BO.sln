@@ -1,16 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PABo.Core", "PABo.Core\PABo.Core.csproj", "{B716BFA0-C744-41CF-8650-F0D93095EA4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PA.BO.Core", "PA.BO.Core\PA.BO.Core.csproj", "{B716BFA0-C744-41CF-8650-F0D93095EA4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PABo.Common", "PABo.Common\PABo.Common.csproj", "{85F73AC7-0A74-46D4-9029-06C77E562B0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PA.BO.Common", "PA.BO.Common\PA.BO.Common.csproj", "{85F73AC7-0A74-46D4-9029-06C77E562B0D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F8FA2615-13CB-496A-971F-2034DBB1A6FC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{A555A074-8816-467E-ACA5-ADC840218454}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PABo.Infrastructure", "PABo.Infrastructure\PABo.Infrastructure.csproj", "{A201943F-988D-420E-A1E9-E3E2A2DFC581}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PA.BO.Infrastructure", "PA.BO.Infrastructure\PA.BO.Infrastructure.csproj", "{A201943F-988D-420E-A1E9-E3E2A2DFC581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PABo.Database", "PABo.Database\PABo.Database.csproj", "{A00BCD00-A945-4800-867D-218C5A15D2C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PA.BO.Database", "PA.BO.Database\PA.BO.Database.csproj", "{A00BCD00-A945-4800-867D-218C5A15D2C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

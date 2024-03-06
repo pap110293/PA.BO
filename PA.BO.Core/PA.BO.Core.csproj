@@ -3,10 +3,11 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>PA.BO.Core</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\PABo.Common\PABo.Common.csproj" />
+      <ProjectReference Include="..\PA.BO.Common\PA.BO.Common.csproj" />
     </ItemGroup>
 
 </Project>

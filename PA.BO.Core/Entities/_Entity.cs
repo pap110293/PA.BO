@@ -1,6 +1,6 @@
-using PABo.Core.Entities.Interfaces;
+using PA.BO.Core.Entities.Interfaces;
 
-namespace PABo.Core.Entities;
+namespace PA.BO.Core.Entities;
 
 public class _Entity : ITrackable
 {

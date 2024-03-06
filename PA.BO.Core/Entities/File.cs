@@ -1,6 +1,6 @@
-using PABo.Core.Enums;
+using PA.BO.Core.Enums;
 
-namespace PABo.Core.Entities;
+namespace PA.BO.Core.Entities;
 
 public class File : _Entity
 {

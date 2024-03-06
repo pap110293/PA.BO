@@ -1,6 +1,6 @@
-using PABo.Common;
+using PA.BO.Common;
 
-namespace PABo.Core.Entities;
+namespace PA.BO.Core.Entities;
 
 public class Document : _Entity
 {

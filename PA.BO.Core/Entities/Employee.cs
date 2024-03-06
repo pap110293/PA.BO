@@ -1,4 +1,4 @@
-namespace PABo.Core.Entities;
+namespace PA.BO.Core.Entities;
 
 public class Employee : _Entity
 {
