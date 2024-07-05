@@ -15,7 +15,37 @@ namespace PA.BO.Web.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
+
+            modelBuilder.Entity("ApplicationRolePermissionEntity", b =>
+                {
+                    b.Property<string>("PermissionsId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RolesId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PermissionsId", "RolesId");
+
+                    b.HasIndex("RolesId");
+
+                    b.ToTable("ApplicationRolePermissionEntity");
+                });
+
+            modelBuilder.Entity("EmployeeEntityTimeSheetEntity", b =>
+                {
+                    b.Property<string>("EmployeesId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TimeSheetsId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("EmployeesId", "TimeSheetsId");
+
+                    b.HasIndex("TimeSheetsId");
+
+                    b.ToTable("EmployeeEntityTimeSheetEntity");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -119,34 +149,7 @@ namespace PA.BO.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PA.BO.Web.Core.Entities.Branch", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Enable")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Branch");
-                });
-
-            modelBuilder.Entity("PA.BO.Web.Core.Entities.Role", b =>
+            modelBuilder.Entity("PA.BO.Web.Data.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -154,6 +157,11 @@ namespace PA.BO.Web.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActivated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
@@ -172,16 +180,13 @@ namespace PA.BO.Web.Data.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("PA.BO.Web.Core.Entities.User", b =>
+            modelBuilder.Entity("PA.BO.Web.Data.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("BranchId")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -194,13 +199,10 @@ namespace PA.BO.Web.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<bool>("IsActivated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(true);
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
@@ -237,8 +239,6 @@ namespace PA.BO.Web.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BranchId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -249,9 +249,199 @@ namespace PA.BO.Web.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("PA.BO.Web.Data.DataEntities.BranchEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActivated")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Branches", (string)null);
+                });
+
+            modelBuilder.Entity("PA.BO.Web.Data.DataEntities.CheckTimeEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CheckAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActivated")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("CheckTimes", (string)null);
+                });
+
+            modelBuilder.Entity("PA.BO.Web.Data.DataEntities.EmployeeEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BranchId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActivated")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique();
+
+                    b.HasIndex("BranchId");
+
+                    b.ToTable("Employees", (string)null);
+                });
+
+            modelBuilder.Entity("PA.BO.Web.Data.DataEntities.PermissionEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActivated")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions", (string)null);
+                });
+
+            modelBuilder.Entity("PA.BO.Web.Data.DataEntities.TimeSheetEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("EndAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsActivated")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("StartAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TimeSheets", (string)null);
+                });
+
+            modelBuilder.Entity("ApplicationRolePermissionEntity", b =>
+                {
+                    b.HasOne("PA.BO.Web.Data.DataEntities.PermissionEntity", null)
+                        .WithMany()
+                        .HasForeignKey("PermissionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PA.BO.Web.Data.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EmployeeEntityTimeSheetEntity", b =>
+                {
+                    b.HasOne("PA.BO.Web.Data.DataEntities.EmployeeEntity", null)
+                        .WithMany()
+                        .HasForeignKey("EmployeesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PA.BO.Web.Data.DataEntities.TimeSheetEntity", null)
+                        .WithMany()
+                        .HasForeignKey("TimeSheetsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("PA.BO.Web.Core.Entities.Role", null)
+                    b.HasOne("PA.BO.Web.Data.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -260,7 +450,7 @@ namespace PA.BO.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("PA.BO.Web.Core.Entities.User", null)
+                    b.HasOne("PA.BO.Web.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -269,7 +459,7 @@ namespace PA.BO.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("PA.BO.Web.Core.Entities.User", null)
+                    b.HasOne("PA.BO.Web.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -278,13 +468,13 @@ namespace PA.BO.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("PA.BO.Web.Core.Entities.Role", null)
+                    b.HasOne("PA.BO.Web.Data.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PA.BO.Web.Core.Entities.User", null)
+                    b.HasOne("PA.BO.Web.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -293,20 +483,50 @@ namespace PA.BO.Web.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("PA.BO.Web.Core.Entities.User", null)
+                    b.HasOne("PA.BO.Web.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PA.BO.Web.Core.Entities.User", b =>
+            modelBuilder.Entity("PA.BO.Web.Data.DataEntities.CheckTimeEntity", b =>
                 {
-                    b.HasOne("PA.BO.Web.Core.Entities.Branch", "Branch")
-                        .WithMany()
+                    b.HasOne("PA.BO.Web.Data.DataEntities.EmployeeEntity", "Employee")
+                        .WithMany("CheckTimes")
+                        .HasForeignKey("EmployeeId");
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("PA.BO.Web.Data.DataEntities.EmployeeEntity", b =>
+                {
+                    b.HasOne("PA.BO.Web.Data.ApplicationUser", "ApplicationUser")
+                        .WithOne("Employee")
+                        .HasForeignKey("PA.BO.Web.Data.DataEntities.EmployeeEntity", "ApplicationUserId");
+
+                    b.HasOne("PA.BO.Web.Data.DataEntities.BranchEntity", "Branch")
+                        .WithMany("Employees")
                         .HasForeignKey("BranchId");
 
+                    b.Navigation("ApplicationUser");
+
                     b.Navigation("Branch");
+                });
+
+            modelBuilder.Entity("PA.BO.Web.Data.ApplicationUser", b =>
+                {
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("PA.BO.Web.Data.DataEntities.BranchEntity", b =>
+                {
+                    b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("PA.BO.Web.Data.DataEntities.EmployeeEntity", b =>
+                {
+                    b.Navigation("CheckTimes");
                 });
 #pragma warning restore 612, 618
         }

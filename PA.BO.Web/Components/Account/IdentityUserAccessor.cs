@@ -1,14 +1,13 @@
 using Microsoft.AspNetCore.Identity;
-using PA.BO.Web.Core.Entities;
 using PA.BO.Web.Data;
 
 namespace PA.BO.Web.Components.Account;
 
 internal sealed class IdentityUserAccessor(
-    UserManager<User> userManager,
+    UserManager<ApplicationUser> userManager,
     IdentityRedirectManager redirectManager)
 {
-    public async Task<User> GetRequiredUserAsync(HttpContext context)
+    public async Task<ApplicationUser> GetRequiredUserAsync(HttpContext context)
     {
         var user = await userManager.GetUserAsync(context.User);
 

@@ -1,11 +1,10 @@
 ﻿@page "/Account/Manage/ResetAuthenticator"
 
 @using Microsoft.AspNetCore.Identity
-@using PA.BO.Web.Core.Entities
 @using PA.BO.Web.Data
 
-@inject UserManager<User> UserManager
-@inject SignInManager<User> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
 @inject IdentityUserAccessor UserAccessor
 @inject IdentityRedirectManager RedirectManager
 @inject ILogger<ResetAuthenticator> Logger
